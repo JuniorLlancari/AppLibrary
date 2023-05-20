@@ -1,0 +1,28 @@
+version: '3.4'
+
+networks:
+  mydockerapi-dev:
+    driver: bridge
+
+services:
+  webapi:
+    container_name: mongoapi
+    build:
+      context: .
+      dockerfile: AppLibrary/Dockerfile
+    depends_on:
+      - database
+    networks:
+      - mydockerapi-dev
+    ports:
+      - "8080:80" 
+
+  database:
+    image: mongo:5.0
+    container_name: mongodb 
+    ports:
+      - 27017:27017
+    networks:
+      - mydockerapi-dev
+
+ 
